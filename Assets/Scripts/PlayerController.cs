@@ -10,14 +10,30 @@ public class Boundary
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
+    private float nextFire;
 
     public float speed;
     public float tilt;
     public Boundary boundary;
 
+    public GameObject shot;
+    public Transform shotSpawn;
+    public float fireRate;
+    
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+        }
+        
     }
 
     void FixedUpdate()
@@ -28,7 +44,7 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         rb.velocity = movement * speed;
 
-        GetComponent<Rigidbody>().position = new Vector3
+        rb.position = new Vector3
         (
             Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
             0.0f,
