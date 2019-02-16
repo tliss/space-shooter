@@ -37,7 +37,7 @@ public class DestroyByContact : MonoBehaviour
             gameController.GameOver();
         }
 
-        gameController.AddScore(scoreValue);
+        // gameController.AddScore(scoreValue);
 
         // Destroy laser bolt
         Destroy(other.gameObject);
